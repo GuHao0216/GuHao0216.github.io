@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">一种基于Transformer的代码摘要方法 - 我的全新 Hugo 网站</title><meta name="Description" content=""><meta property="og:title" content="一种基于Transformer的代码摘要方法" />
+<meta property="og:description" content="一种基于Transformer的代码摘要方法摘要生成描述程序功能的可读摘要称为源代码摘要。在这个任务中，通过对代码token之间的成对关系建" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://GuHao0216.github.io/posts/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-22T21:14:06+08:00" />
+<meta property="article:modified_time" content="2022-04-22T21:14:06+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一种基于Transformer的代码摘要方法"/>
+<meta name="twitter:description" content="一种基于Transformer的代码摘要方法摘要生成描述程序功能的可读摘要称为源代码摘要。在这个任务中，通过对代码token之间的成对关系建"/>
+<meta name="application-name" content="我的全新 Hugo 网站">
+<meta name="apple-mobile-web-app-title" content="我的全新 Hugo 网站">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://GuHao0216.github.io/posts/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "一种基于Transformer的代码摘要方法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/GuHao0216.github.io\/posts\/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95\/"
+        },"genre": "posts","wordcount":  5495 ,
+        "url": "https:\/\/GuHao0216.github.io\/posts\/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95\/","datePublished": "2022-04-22T21:14:06+08:00","dateModified": "2022-04-22T21:14:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站">我的全新 Hugo 网站</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站">我的全新 Hugo 网站</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">一种基于Transformer的代码摘要方法</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                </span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-22">2022-04-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-04-22">2022-04-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5495 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="content" id="content"><h1 id="一种基于transformer的代码摘要方法" class="headerLink">
+    <a href="#%e4%b8%80%e7%a7%8d%e5%9f%ba%e4%ba%8etransformer%e7%9a%84%e4%bb%a3%e7%a0%81%e6%91%98%e8%a6%81%e6%96%b9%e6%b3%95" class="header-mark"></a>一种基于Transformer的代码摘要方法</h1><p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png"
+        data-srcset="https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png, https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png 1.5x, https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png"
+        title="https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png">
+<img
+        class="lazyload"
+        data-src="https://github.com/leezicai/share/raw/master/icon/number/1.png"
+        data-srcset="https://github.com/leezicai/share/raw/master/icon/number/1.png, https://github.com/leezicai/share/raw/master/icon/number/1.png 1.5x, https://github.com/leezicai/share/raw/master/icon/number/1.png 2x"
+        data-sizes="auto"
+        alt="https://github.com/leezicai/share/raw/master/icon/number/1.png"
+        title="number1"></p>
+<h2 id="摘要" class="headerLink">
+    <a href="#%e6%91%98%e8%a6%81" class="header-mark"></a>摘要</h2><p>生成描述程序功能的可读摘要称为源代码摘要。在这个任务中，通过对代码token之间的成对关系建模来学习代码表示，以捕获它们的长期依赖关系是至关重要的。为了学习用于摘要的代码表示，我们探索了使用自注意机制的Transformer模型，该模型在捕获长依赖关系方面已经证明是有效的。在这项工作中，我们表明，尽管方法很简单，但它比最先进的技术有显著的优势。我们进行了广泛的分析和控制变量研究，揭示了几个重要的发现，例如，源码token的位置障碍的绝对编码，而相对编码显著提高了摘要性能。我们已经公开了我们的代码，以方便未来的研究。</p>
+<h2 id="1-介绍" class="headerLink">
+    <a href="#1-%e4%bb%8b%e7%bb%8d" class="header-mark"></a>1 介绍</h2><p>程序理解是软件开发和维护不可缺少的组成部分(Xia et al.，2018)。源代码的自然语言摘要可以大大减少开发人员的工作，从而促进程序的理解(Sridhara等人，2010)。源代码摘要指的是创建可读的摘要来描述程序的功能。</p>
+<p>随着深度学习技术和大量开源仓库对大规模数据的可用性的发展，自动源代码摘要已经引起了研究者们的关注。大多数基于神经网络方法都是按序列到序列的方式生成源代码摘要的。最初的工作之一Iyer等人(2016)训练了一个嵌入矩阵来表示单个的代码token，并通过注意机制将它们与循环神经网络(RNN)结合起来，生成自然语言摘要。后续研究(Liang and Zhu,2018;Hu et al.，2018a,b)在不同的代码摘要上采用了传统的基于RNN的序列到序列网络(Sutskever et al.，2014)和注意力机制(Luong et al.，2015)。</p>
+<p>基于RNN的序列模型在学习源代码表示方面有两个局限性。首先，当它们按顺序处理代码token时，它们不会对源代码的非顺序结构进行建模。第二，源代码可能非常长，因此基于RNN的模型可能无法捕获代码之间的长依赖关系。与基于RNN的模型相比，利用自我注意机制的Transformer (Vaswani et al.，2017)可以捕获长依赖关系。Transformer在许多自然语言生成任务中表现良好，如机器翻译(Wang et al.，2019)、文本摘要(You et al.，2019)、故事生成(Fan et al.，2018)等。</p>
+<p>为了学习序列中token的顺序或为token之间的关系建模，Trans-former需要注入位置编码(Vaswani等人，2017;Shaw等人，2018;Shiv和Quirk,2019)。在这项工作中，我们表明，通过使用相对位置表示对源代码token之间的两两关系建模(Shaw等人，2018)，相比于使用绝对位置表示学习代码token的序列信息有显著提升(Vaswani等人，2017)。</p>
+<p>我们想要强调的是，我们提出的方法简单但有效，因为它的性能大大超过了花哨和复杂的最先进的源代码摘要技术。我们在两个从GitHub收集的较好的数据集上进行实验，结果证实了我们的方法相比最先进的方法更为有效。此外，我们还提供了详细的控制变量研究，以量化Transformer模型中几种设计选择的影响，为未来的研究提供坚实的基础。</p>
+<p>源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。</p>
+<h2 id="2-方法" class="headerLink">
+    <a href="#2-%e6%96%b9%e6%b3%95" class="header-mark"></a>2 方法</h2><p>我们提出使用Transformer(Vaswani等人,2017)生成给定一段源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。</p>
+<h3 id="21-架构" class="headerLink">
+    <a href="#21-%e6%9e%b6%e6%9e%84" class="header-mark"></a>2.1 架构</h3><p>Transformer由用于编码器和解码器的多层注意事项和参数化线性转换层组成。在每一层中，多头注意利用h个注意头，执行自注意力机制。</p>
+<p><strong>自注意力机制：</strong> 我们在Shaw等人(2018)的基础上描述了自注意力机制。在每个注意头中，输入向量的序列，$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$，被转换为输出向量序列，$o=(o_1,\ldots,o_n)$，其中，$o_i\in R^{d_k}$,为:
+$$o_i=\sum_{j=1}^{n}{a_{ij}(x_jW^V)}，$$
+$$e_{ij}=\frac{x_iW^Q\left(x_jW^K\right)^T}{\sqrt{d_k}},$$
+其中，$a_{ij}=\frac{\exp{e_{ij}}}{\sum_{k=1}^{n}{exp{\ e}<em>{ik}}}$，且$W^Q,W^K\in R^{d</em>{model}\times d_k}，W^V\in R^{d_{model}\times d_v}$，为每层和注意头唯一的参数。</p>
+<p><strong>复制注意力：</strong> 我们在Transformer中加入了复制机制(See等人,2017)，允许从词汇表生成单词，也可以从输入源代码中复制单词。我们使用一个额外的注意层来学习解码器堆栈上的副本分布(Nishida等人,2019)。复制注意力使Transformer能够从源代码中复制罕见的token(例如，函数名，变量名)，从而显著提高摘要性能。</p>
+<h3 id="22-位置表示" class="headerLink">
+    <a href="#22-%e4%bd%8d%e7%bd%ae%e8%a1%a8%e7%a4%ba" class="header-mark"></a>2.2 位置表示</h3><p>现在，我们将讨论如何了解源代码标记的顺序或对它们的关系进行建模。</p>
+<p><strong>编码绝对位置：</strong> 为了使Transformer能够利用源代码令牌的顺序信息，我们训练一个嵌入矩阵$W^{P_e}$，该矩阵学习将令牌的绝对位置编码为维数$d_{model}$的向量。然而，我们发现捕获代码标记的顺序对学习源代码表示并没有帮助，并且会导致较差的摘要性能。
+值得注意的是，我们训练了另一个学习对摘要标记的绝对位置进行编码的嵌入矩阵$W^{P_e}$。</p>
+<p><strong>编码之间的关系：</strong> 代码的语义表示并不依赖于符号的绝对位置。相反，它们之间的相互作用会影响源代码的含义。例如，表达式a+b和b+a的语义是相同的。
+为了编码输入元素之间的成对关系，Shaw等人(2018)将自我注意机制扩展如下。
+$$o_i=\sum_{j=1}^{n}{a_{ij}\left(x_jW^V+a_{ij}^V\right)},$$
+$$e_{ij}=\frac{x_iW^Q\left(x_iW^k+a_{ij}^k\right)^T}{\sqrt{d_k}},$$
+其中，$a_{ij}^V$和$a_{ij}^k$是两个位置$i$和$j$的相对位置表示。Shaw等人(2018)建议将最大相对位置剪切为$k$的最大绝对值，因为他们假设，在一定距离之外，精确的相对位置信息是没有用的。
+$$a_{ij}^K=w_{clip\left(j-i,k\right)}^K,a_{ij}^V=w_{clip\left(j-i,k\right)}^V,$$
+$$clip\left(x,k\right)=\max(-k,\min{\left(k,x\right)}).$$
+因此，我们学习了2k + 1个相对位置表示：$(w_{-k}^K,\ldots,w_k^K)$和$(w_{-k}^V,\ldots,w_k^V)$。
+在这项工作中，我们研究了一种忽略方向信息的相对位置表示的替代方法(Ahmad等人，2019)。换句话说，忽略第$j$个token是在第$i$个token的左边还是右边的信息。
+$$a_{ij}^K=w_{clip\left(\left|j-i\right|,k\right)}^K\ ,\ a_{ij}^V=w_{clip\left(\left|j-i\right|,k\right)}^V,$$
+$$clip\left(x,k\right)=\min(\left|x\right|,k).$$</p>
+<h2 id="3-实验" class="headerLink">
+    <a href="#3-%e5%ae%9e%e9%aa%8c" class="header-mark"></a>3 实验</h2><h3 id="31-设置" class="headerLink">
+    <a href="#31-%e8%ae%be%e7%bd%ae" class="header-mark"></a>3.1 设置</h3><p><strong>数据集和预处理。</strong> 我们在Java数据集(Hu et al.，2018b)和Python数据集(Wan et al.，2018)上进行了实验。两个数据集的统计数据如表1所示。</p>
+<p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png"
+        data-srcset="https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png, https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png 1.5x, https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png"
+        title="https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png"></p>
+<p>除了使用Wei等人(2019)的预处理步骤之外，我们还将驼峰命名法和蛇形命名法的源代码token拆分为各自的子token。我们证明这样的代码token分割可以提高摘要性能。</p>
+<p><strong>评估指标。</strong> 我们使用三个指标来评估代码摘要性能，BLEU (Papineni等人，2002年)、METEOR(Banerjee和Lavie,2005年)和ROUGE-L(Lin,2004年)。
+基线方法。我们将基于Transformer的源代码摘要方法与Wei等人(2019)报告的五种基线方法及他们提出的对偶模型进行了比较。</p>
+<p><strong>超参数。</strong> 我们遵循Wei等人(2019)在这两个数据集中为代码和摘要设置了最大长度和词汇量。我们使用Adam优化器(Kingma和Ba,2015)对Transformer模型进行训练，初始学习率为 。我们将小批量尺寸和丢弃率分别设置为32和0.2。我们将Transformer模型训练为最多200个epoch，如果验证性能在连续20次迭代中没有改善，我们将提前停止。我们在推理过程中使用波束搜索，并将波束大小设置为4。详细的超参数设置可以在附录A中找到。
+我们使用三个指标来评估代码摘要性能，BLEU (Papineni等人，2002年)、METEOR(Banerjee和Lavie,2005年)和ROUGE-L(Lin,2004年)。</p>
+<p><strong>基线方法。</strong> 我们将基于Transformer的源代码摘要方法与Wei等人(2019)报告的五种基线方法及他们提出的对偶模型进行了比较。</p>
+<h3 id="32-结果分析" class="headerLink">
+    <a href="#32-%e7%bb%93%e6%9e%9c%e5%88%86%e6%9e%90" class="header-mark"></a>3.2 结果分析</h3><p><strong>整体结果。</strong> 我们提出的模型和基线的总体结果在表2中给出。</p>
+<p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png"
+        data-srcset="https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png, https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png 1.5x, https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png"
+        title="https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png"></p>
+<p>结果表明，我们的基础模型优于基线(java中ROUGE-L除外)，而全模型进一步提高了性能。我们在原始数据集上运行基础模型(没有切分驼峰命名和蛇形命名的代码token)，观察到在Java和python数据集的性能。BLEU指标分别下降了0.60和0.72。ROUGE-L指标分别下降了1.66和2.09 。我们在附录c中提供了几个定性的例子，展示了超越基本模型的完整模型的实用性。
+与基线方法不同，我们提出的模型采用了复制注意力机制。如表2所示，对于java和Python数据集，复制注意力机制在BLEU指标上分别提高了0.44和0.88的性能。
+位置表示的影响。我们进行了控制变量研究，以调查编码代码token的绝对位置或建模它们的成对关系对源代码摘要任务的影响，结果见表3和表4。</p>
+<p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png"
+        data-srcset="https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png, https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png 1.5x, https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png"
+        title="https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png"></p>
+<p>表3表明，学习代码token的绝对位置是无效的，因为我们可以看到，与排除它相比，它会略微降低性能表现。这一实证发现证实了Iyer等人(2016)的设计选择，他们没有使用源代码token的序列信息。
+另一方面，我们发现，如表4所示，通过相对位置表示来学习源代码token之间的成对关系有助于提升表现。我们改变剪切距离，k，并考虑忽略方向信息，但是建模成对的关系。实证结果表明，方向信息确实重要，而16、32和$2^i$相对距离导致在两个实验数据集上相似的表现。
+改变模型大小和层数。我们通过改变模型的大小和层数的控制变量实验结果如表5所示。</p>
+<p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png"
+        data-srcset="https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png, https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png 1.5x, https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png"
+        title="https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png"></p>
+<p>在我们的实验中，我们观察到一个更深的模型(更多的层数)比一个更宽的模型(更大的模型)表现得更好。直观地说，源代码摘要任务依赖于更多的语义信息，而不是语法信息，因此更深层次的模型会有所帮助。</p>
+<p><strong>抽象语法树（AST）的使用。</strong> 我们在Transformer中使用源代码的抽象语法树(AST)结构进行了额外的实验。我们使用Hu等人(2018a)的方法，使用基于结构的遍历(SBT)技术将AST结构转换为线性序列。除了在复制注意力机制中，我们使用了一个掩码来阻止从输入序列中复制非终结符token之外，我们保持了我们提出的transformer架构的完整。需要注意的是，有AST和没有AST时，输入代码序列的平均长度分别为172和120。由于Transformer 是$O(n^2 \times d)$的复杂性，因此，使用AST会带来额外的成本。我们的实验结果表明，在Transformer中加入AST信息并不能改善源代码摘要。我们假设在摘要中利用代码结构信息的优势是有限的，当Transformer通过相对位置表示隐式地学习它时，这种优势就会减少。</p>
+<p><strong>定性分析。</strong> 表6中的例子定性地证明了我们建议的方法的有效性(更多的例子在附录中的表9和表10中提供)。</p>
+<p><img
+        class="lazyload"
+        data-src="https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png"
+        data-srcset="https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png, https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png 1.5x, https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png 2x"
+        data-sizes="auto"
+        alt="https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png"
+        title="https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png"></p>
+<p>定性分析表明，与Vanilla Transformer模型相比，启用复制注意力模型生成的摘要更短，关键词更准确。此外，我们观察到，在一个支持复制的模型中，当使用相对位置表示时，与绝对位置表示相比，代码片段中频繁的token会获得更高的复制概率。我们怀疑这是由于学习代码token之间关系的灵活性，而不依赖于它们的绝对位置。</p>
+<h2 id="4-相关工作" class="headerLink">
+    <a href="#4-%e7%9b%b8%e5%85%b3%e5%b7%a5%e4%bd%9c" class="header-mark"></a>4 相关工作</h2><p>大多数神经网络源代码摘要方法将问题框架为序列生成任务，并使用循环的编码器-解码器网络，将注意力机制作为基本构建模块(Iyer等人，2016;Liang和Zhu,2018;Hu等人，2018a,b)。与这些研究不同的是，Allamanis等人(2016)提出了一个卷积注意模型，将源代码总结成简短的、类似名称的摘要。最近在代码摘要方面的工作利用了抽象语法树(AST)形式的程序的结构信息，可以使用树结构编码器进行编码，如Tree- lstm (Shido et al.，2019)、Tree- transformer (Harer et al.，2019)和图神经网络(LeClair et al.，2020)。相比之下，Hu等人(2018a)提出了一种基于结构的遍历(SBT)方法来将AST扁平化成序列，并显示出了对基于AST方法的改进。后来，LeClair等人(2019)使用了SBT方法并将代码结构从代码token中解耦，以学习更好的结构表示。其他值得注意的工作包括API使用信息(Hu et al.，2018b)、强化学习(Wan et al.，2018)、对偶学习(Wei et al.，2019)、基于检索的技术(Zhang et al.，2020)，这些都被用来进一步增强代码摘要模型。我们可以用先前提出的技术增强Transformer。然而，在这项工作中，我们仅研究Transformer的不同设计选择，而没有打破它的核心架构设计理念。</p>
+<h2 id="5-结论" class="headerLink">
+    <a href="#5-%e7%bb%93%e8%ae%ba" class="header-mark"></a>5 结论</h2><p>本文对使用Transformer模型完成源代码摘要任务的优势进行了实证研究。我们证明，具有相对位置表示和复制注意力的Transformer比最先进的方法表现要好得多。在我们未来的工作中，我们希望学习如何将代码结构有效地整合到Transformer中，并应用到其他软件工程序列生成任务中的技术(例如，提交源代码更改的commit消息生成)。</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script></div>
+</body>
+
+</html>
