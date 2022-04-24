@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>我的全新 Hugo 网站</title>
+        <title>MindNote</title>
         <link>https://guhao0216.github.io/</link>
-        <description>我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 23 Apr 2022 20:40:33 &#43;0800</lastBuildDate>
+        <description>MindNote for HarryGu</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 23 Apr 2022 21:43:12 &#43;0800</lastBuildDate>
             <atom:link href="https://guhao0216.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>First_post</title>
-    <link>https://guhao0216.github.io/posts/first_post/</link>
-    <pubDate>Sat, 23 Apr 2022 20:40:33 &#43;0800</pubDate><author>
-        <name>作者</name>
-    </author><guid>https://guhao0216.github.io/posts/first_post/</guid>
-    <description><![CDATA[$\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$ \f\relax{x} = \int_{-\infty}^\infty \f\hat\xi\,e^{2 \pi i \xi x} \,d\xi This is a right-aligned paragraph. $\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$ Or $$\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$$ https://assemble.io 或者 mailto:contact@revolunet.com 或者 Assemble 或者 Assemble 或者 $\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$ Or $$\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$$ Theme Documentation - Basics Discover what the Hugo - DoIt theme is all about and the core-concepts behind it. 阅读全文 $\|\boldsymbol{x}\|_{0}=\sqrt[0]{\sum_{i} x_{i}^{0}}$]]></description>
+    <link>https://guhao0216.github.io/first_post/</link>
+    <pubDate>Sat, 23 Apr 2022 21:43:12 &#43;0800</pubDate><author>
+        <name>HarryGu</name>
+    </author><guid>https://guhao0216.github.io/first_post/</guid>
+    <description><![CDATA[]]></description>
 </item><item>
     <title>一种基于Transformer的代码摘要方法</title>
-    <link>https://guhao0216.github.io/posts/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/</link>
+    <link>https://guhao0216.github.io/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/</link>
     <pubDate>Fri, 22 Apr 2022 21:14:06 &#43;0800</pubDate><author>
-        <name>作者</name>
-    </author><guid>https://guhao0216.github.io/posts/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/</guid>
+        <name>HarryGu</name>
+    </author><guid>https://guhao0216.github.io/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[一种基于Transformer的代码摘要方法摘要生成描述程序功能的可读摘要称为源代码摘要。在这个任务中，通过对代码token之间的成对关系建]]></description>
 </item></channel>
 </rss>
