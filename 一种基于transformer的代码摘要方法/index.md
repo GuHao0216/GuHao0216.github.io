@@ -1,10 +1,7 @@
 # 一种基于Transformer的代码摘要方法
 
 
-# 一种基于Transformer的代码摘要方法
-
-![](https://files.mdnice.com/user/25136/9ee523e6-3ffe-4b95-bc84-e0a389d9484d.png)
-![number1](https://github.com/leezicai/share/raw/master/icon/number/1.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425204728.png#pic_center)
 
 
 ## 摘要
@@ -21,42 +18,43 @@
 
 我们想要强调的是，我们提出的方法简单但有效，因为它的性能大大超过了花哨和复杂的最先进的源代码摘要技术。我们在两个从GitHub收集的较好的数据集上进行实验，结果证实了我们的方法相比最先进的方法更为有效。此外，我们还提供了详细的控制变量研究，以量化Transformer模型中几种设计选择的影响，为未来的研究提供坚实的基础。
 
-源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，{{< math >}}$x=(x_1,\ldots,x_n)${{< math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< math >}}。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
+源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，{{< math >}}
+$x=(x_1,\ldots,x_n)${{< /math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< /math >}}。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
 
 ## 2 方法
-我们提出使用Transformer(Vaswani等人,2017)生成给定一段源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
+我们提出使用Transformer(Vaswani等人,2017)生成给定一段源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，{{< math >}}$x=(x_1,\ldots,x_n)${{< /math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< /math >}}。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
 ### 2.1 架构
 Transformer由用于编码器和解码器的多层注意事项和参数化线性转换层组成。在每一层中，多头注意利用h个注意头，执行自注意力机制。
 
-**自注意力机制：** 我们在Shaw等人(2018)的基础上描述了自注意力机制。在每个注意头中，输入向量的序列，$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$，被转换为输出向量序列，$o=(o_1,\ldots,o_n)$，其中，$o_i\in R^{d_k}$,为:
-$$o_i=\sum_{j=1}^{n}{a_{ij}(x_jW^V)}，$$
-$$e_{ij}=\frac{x_iW^Q\left(x_jW^K\right)^T}{\sqrt{d_k}},$$
-其中，$a_{ij}=\frac{\exp{e_{ij}}}{\sum_{k=1}^{n}{exp{\ e}_{ik}}}$，且$W^Q,W^K\in R^{d_{model}\times d_k}，W^V\in R^{d_{model}\times d_v}$，为每层和注意头唯一的参数。
+**自注意力机制：** 我们在Shaw等人(2018)的基础上描述了自注意力机制。在每个注意头中，输入向量的序列，{{< math >}}$x=(x_1,\ldots,x_n)${{< /math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< /math >}}，被转换为输出向量序列，{{< math >}}$o=(o_1,\ldots,o_n)${{< /math >}}，其中，{{< math >}}$o_i\in R^{d_k}${{< /math >}},为:
+{{< math >}}$$o_i=\sum_{j=1}^{n}{a_{ij}(x_jW^V)}，$${{< /math >}}
+{{< math >}}$$e_{ij}=\frac{x_iW^Q\left(x_jW^K\right)^T}{\sqrt{d_k}},$${{< /math >}}
+其中，{{< math >}}$a_{ij}=\frac{\exp{e_{ij}}}{\sum_{k=1}^{n}{exp{\ e}_{ik}}}${{< /math >}}，且{{< math >}}$W^Q,W^K\in R^{d_{model}\times d_k}，W^V\in R^{d_{model}\times d_v}${{< /math >}}，为每层和注意头唯一的参数。
 
 **复制注意力：** 我们在Transformer中加入了复制机制(See等人,2017)，允许从词汇表生成单词，也可以从输入源代码中复制单词。我们使用一个额外的注意层来学习解码器堆栈上的副本分布(Nishida等人,2019)。复制注意力使Transformer能够从源代码中复制罕见的token(例如，函数名，变量名)，从而显著提高摘要性能。
 ### 2.2 位置表示
 现在，我们将讨论如何了解源代码标记的顺序或对它们的关系进行建模。
 
-**编码绝对位置：** 为了使Transformer能够利用源代码令牌的顺序信息，我们训练一个嵌入矩阵$W^{P_e}$，该矩阵学习将令牌的绝对位置编码为维数$d_{model}$的向量。然而，我们发现捕获代码标记的顺序对学习源代码表示并没有帮助，并且会导致较差的摘要性能。
-值得注意的是，我们训练了另一个学习对摘要标记的绝对位置进行编码的嵌入矩阵$W^{P_e}$。
+**编码绝对位置：** 为了使Transformer能够利用源代码令牌的顺序信息，我们训练一个嵌入矩阵{{< math >}}$W^{P_e}${{< /math >}}，该矩阵学习将令牌的绝对位置编码为维数{{< math >}}$d_{model}${{< /math >}}的向量。然而，我们发现捕获代码标记的顺序对学习源代码表示并没有帮助，并且会导致较差的摘要性能。
+值得注意的是，我们训练了另一个学习对摘要标记的绝对位置进行编码的嵌入矩阵{{< math >}}$W^{P_e}${{< /math >}}。
 
 **编码之间的关系：** 代码的语义表示并不依赖于符号的绝对位置。相反，它们之间的相互作用会影响源代码的含义。例如，表达式a+b和b+a的语义是相同的。
 为了编码输入元素之间的成对关系，Shaw等人(2018)将自我注意机制扩展如下。
-$$o_i=\sum_{j=1}^{n}{a_{ij}\left(x_jW^V+a_{ij}^V\right)},$$
-$$e_{ij}=\frac{x_iW^Q\left(x_iW^k+a_{ij}^k\right)^T}{\sqrt{d_k}},$$
-其中，$a_{ij}^V$和$a_{ij}^k$是两个位置$i$和$j$的相对位置表示。Shaw等人(2018)建议将最大相对位置剪切为$k$的最大绝对值，因为他们假设，在一定距离之外，精确的相对位置信息是没有用的。
-$$a_{ij}^K=w_{clip\left(j-i,k\right)}^K,a_{ij}^V=w_{clip\left(j-i,k\right)}^V,$$
-$$clip\left(x,k\right)=\max(-k,\min{\left(k,x\right)}).$$
-因此，我们学习了2k + 1个相对位置表示：$(w_{-k}^K,\ldots,w_k^K)$和$(w_{-k}^V,\ldots,w_k^V)$。
+{{< math >}}$$o_i=\sum_{j=1}^{n}{a_{ij}\left(x_jW^V+a_{ij}^V\right)},$${{< /math >}}
+{{< math >}}$$e_{ij}=\frac{x_iW^Q\left(x_iW^k+a_{ij}^k\right)^T}{\sqrt{d_k}},$${{< /math >}}
+其中，{{< math >}}$a_{ij}^V${{< /math >}}和{{< math >}}$a_{ij}^k${{< /math >}}是两个位置{{< math >}}$i${{< /math >}}和{{< math >}}$j${{< /math >}}的相对位置表示。Shaw等人(2018)建议将最大相对位置剪切为$k$的最大绝对值，因为他们假设，在一定距离之外，精确的相对位置信息是没有用的。
+{{< math >}}$$a_{ij}^K=w_{clip\left(j-i,k\right)}^K,a_{ij}^V=w_{clip\left(j-i,k\right)}^V,$${{< /math >}}
+{{< math >}}$$clip\left(x,k\right)=\max(-k,\min{\left(k,x\right)}).$${{< /math >}}
+因此，我们学习了2k + 1个相对位置表示：{{< math >}}$(w_{-k}^K,\ldots,w_k^K)$和$(w_{-k}^V,\ldots,w_k^V)${{< /math >}}。
 在这项工作中，我们研究了一种忽略方向信息的相对位置表示的替代方法(Ahmad等人，2019)。换句话说，忽略第$j$个token是在第$i$个token的左边还是右边的信息。 
-$$a_{ij}^K=w_{clip\left(\left|j-i\right|,k\right)}^K\ ,\ a_{ij}^V=w_{clip\left(\left|j-i\right|,k\right)}^V,$$
-$$clip\left(x,k\right)=\min(\left|x\right|,k).$$
+{{< math >}}$$a_{ij}^K=w_{clip\left(\left|j-i\right|,k\right)}^K\ ,\ a_{ij}^V=w_{clip\left(\left|j-i\right|,k\right)}^V,$${{< /math >}}
+{{< math >}}$$clip\left(x,k\right)=\min(\left|x\right|,k).$${{< /math >}}
 
 ## 3 实验
 ### 3.1 设置
 **数据集和预处理。** 我们在Java数据集(Hu et al.，2018b)和Python数据集(Wan et al.，2018)上进行了实验。两个数据集的统计数据如表1所示。
 
-![](https://files.mdnice.com/user/25136/7031ab0a-bc49-497a-bb3d-2ba2fae9e436.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425205222.png)
 
 除了使用Wei等人(2019)的预处理步骤之外，我们还将驼峰命名法和蛇形命名法的源代码token拆分为各自的子token。我们证明这样的代码token分割可以提高摘要性能。
 
@@ -71,19 +69,19 @@ $$clip\left(x,k\right)=\min(\left|x\right|,k).$$
 ### 3.2 结果分析
 **整体结果。** 我们提出的模型和基线的总体结果在表2中给出。
 
-![](https://files.mdnice.com/user/25136/4348bd37-5078-45de-8987-a37fa4f796d1.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425205303.png)
 
 结果表明，我们的基础模型优于基线(java中ROUGE-L除外)，而全模型进一步提高了性能。我们在原始数据集上运行基础模型(没有切分驼峰命名和蛇形命名的代码token)，观察到在Java和python数据集的性能。BLEU指标分别下降了0.60和0.72。ROUGE-L指标分别下降了1.66和2.09 。我们在附录c中提供了几个定性的例子，展示了超越基本模型的完整模型的实用性。
 与基线方法不同，我们提出的模型采用了复制注意力机制。如表2所示，对于java和Python数据集，复制注意力机制在BLEU指标上分别提高了0.44和0.88的性能。
 位置表示的影响。我们进行了控制变量研究，以调查编码代码token的绝对位置或建模它们的成对关系对源代码摘要任务的影响，结果见表3和表4。
 
-![](https://files.mdnice.com/user/25136/7571aa64-67ad-4143-88cf-ce925b545c99.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425205354.png)
 
 表3表明，学习代码token的绝对位置是无效的，因为我们可以看到，与排除它相比，它会略微降低性能表现。这一实证发现证实了Iyer等人(2016)的设计选择，他们没有使用源代码token的序列信息。
 另一方面，我们发现，如表4所示，通过相对位置表示来学习源代码token之间的成对关系有助于提升表现。我们改变剪切距离，k，并考虑忽略方向信息，但是建模成对的关系。实证结果表明，方向信息确实重要，而16、32和$2^i$相对距离导致在两个实验数据集上相似的表现。
 改变模型大小和层数。我们通过改变模型的大小和层数的控制变量实验结果如表5所示。
 
-![](https://files.mdnice.com/user/25136/0716b8dc-212a-44f0-b836-fde40ae32470.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425205422.png)
 
 在我们的实验中，我们观察到一个更深的模型(更多的层数)比一个更宽的模型(更大的模型)表现得更好。直观地说，源代码摘要任务依赖于更多的语义信息，而不是语法信息，因此更深层次的模型会有所帮助。
 
@@ -92,7 +90,7 @@ $$clip\left(x,k\right)=\min(\left|x\right|,k).$$
 
 **定性分析。** 表6中的例子定性地证明了我们建议的方法的有效性(更多的例子在附录中的表9和表10中提供)。
 
-![](https://files.mdnice.com/user/25136/3f0af8a5-da91-418d-9cb0-a259446a8f4d.png)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425205453.png)
 
 定性分析表明，与Vanilla Transformer模型相比，启用复制注意力模型生成的摘要更短，关键词更准确。此外，我们观察到，在一个支持复制的模型中，当使用相对位置表示时，与绝对位置表示相比，代码片段中频繁的token会获得更高的复制概率。我们怀疑这是由于学习代码token之间关系的灵活性，而不依赖于它们的绝对位置。
 
