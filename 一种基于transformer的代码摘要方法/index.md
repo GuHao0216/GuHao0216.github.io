@@ -1,7 +1,7 @@
 # 一种基于Transformer的代码摘要方法
 
 
-![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425204728.png#pic_center)
+![](https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220425204728.png)
 
 
 ## 摘要
@@ -18,8 +18,8 @@
 
 我们想要强调的是，我们提出的方法简单但有效，因为它的性能大大超过了花哨和复杂的最先进的源代码摘要技术。我们在两个从GitHub收集的较好的数据集上进行实验，结果证实了我们的方法相比最先进的方法更为有效。此外，我们还提供了详细的控制变量研究，以量化Transformer模型中几种设计选择的影响，为未来的研究提供坚实的基础。
 
-源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，{{< math >}}
-$x=(x_1,\ldots,x_n)${{< /math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< /math >}}。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
+源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，
+$x=(x_1,\ldots,x_n)$，其中$x_i\in R^{d_{model}}$。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
 
 ## 2 方法
 我们提出使用Transformer(Vaswani等人,2017)生成给定一段源代码的自然语言摘要。代码和摘要都是由向量序列表示的token序列，{{< math >}}$x=(x_1,\ldots,x_n)${{< /math >}}，其中{{< math >}}$x_i\in R^{d_{model}}${{< /math >}}。在本节中，我们将简要描述Transformer的架构，以及如何在Transformer中对源代码标记的顺序或它们的成对关系进行建模。
