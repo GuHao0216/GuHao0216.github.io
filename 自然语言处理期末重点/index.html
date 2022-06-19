@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">自然语言处理期末重点 - MindNote</title><meta name="Description" content="MindNote for HarryGu"><meta property="og:title" content="自然语言处理期末重点" />
+<meta property="og:description" content="自然语言处理期末重点CH1 绪论1. 自然语言处理定义自然语言处理既是科学，又是技术。 2. 面临难点歧义问题：词法分析歧义、语法分析歧义、语义分析歧" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" /><meta property="og:image" content="https://guhao0216.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-19T10:10:19+08:00" />
+<meta property="article:modified_time" content="2022-06-19T10:10:19+08:00" /><meta property="og:site_name" content="MindNote" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://guhao0216.github.io/logo.png"/>
+
+<meta name="twitter:title" content="自然语言处理期末重点"/>
+<meta name="twitter:description" content="自然语言处理期末重点CH1 绪论1. 自然语言处理定义自然语言处理既是科学，又是技术。 2. 面临难点歧义问题：词法分析歧义、语法分析歧义、语义分析歧"/>
+<meta name="application-name" content="MindNote">
+<meta name="apple-mobile-web-app-title" content="MindNote">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" /><link rel="prev" href="https://guhao0216.github.io/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "自然语言处理期末重点",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guhao0216.github.io\/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9\/"
+        },"genre": "posts","wordcount":  1427 ,
+        "url": "https:\/\/guhao0216.github.io\/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9\/","datePublished": "2022-06-19T10:10:19+08:00","dateModified": "2022-06-19T10:10:19+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "HarryGu"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('auto' === 'light' || 'auto' === 'dark' || 'auto' === 'black') setTheme('auto'), saveTheme('auto'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="MindNote">MindNote</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="black">黑色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="MindNote">MindNote</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="black">黑色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ch1-绪论">CH1 绪论</a>
+      <ul>
+        <li><a href="#1-自然语言处理定义">1. 自然语言处理定义</a></li>
+        <li><a href="#2-面临难点">2. 面临难点</a></li>
+        <li><a href="#3-四个发展期八个里程碑">3. 四个发展期、八个里程碑</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch2-预处理">CH2 预处理</a>
+      <ul>
+        <li><a href="#1-预处理的原因及内容">1. 预处理的原因及内容</a></li>
+        <li><a href="#2-html定位元素">2. html定位元素</a></li>
+        <li><a href="#3-分词">3. 分词</a></li>
+        <li><a href="#4-词性标注">4. 词性标注</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch3-文本向量化上">CH3 文本向量化（上）</a>
+      <ul>
+        <li><a href="#1文本向量化原因">1.文本向量化原因</a></li>
+        <li><a href="#2-文本向量化方法离散表示词袋模型">2. 文本向量化方法（离散表示：词袋模型）</a></li>
+        <li><a href="#3-词袋模型存在问题">3. 词袋模型存在问题</a></li>
+        <li><a href="#4-词嵌入">4. 词嵌入</a></li>
+        <li><a href="#5-nnlm神经网络语言模型">5. NNLM（神经网络语言模型）</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch4-文本向量化中">CH4 文本向量化（中）</a>
+      <ul>
+        <li><a href="#1-word2vec两种结构">1. Word2vec两种结构</a></li>
+        <li><a href="#2word2vec存在问题一词多义">2.Word2vec存在问题：一词多义</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch5-elmo">CH5 ELMO</a>
+      <ul>
+        <li><a href="#1全称要点">1.全称、要点</a></li>
+        <li><a href="#2-lstm-三个门">2. LSTM 三个门</a></li>
+        <li><a href="#3rnn结构-计算">3.RNN结构 计算</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch6-gpt">CH6 GPT</a>
+      <ul>
+        <li><a href="#1定义优势改进方向">1.定义、优势、改进方向</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">自然语言处理期末重点</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">HarryGu</a>
+                </span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-19">2022-06-19</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-06-19">2022-06-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1427 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ch1-绪论">CH1 绪论</a>
+      <ul>
+        <li><a href="#1-自然语言处理定义">1. 自然语言处理定义</a></li>
+        <li><a href="#2-面临难点">2. 面临难点</a></li>
+        <li><a href="#3-四个发展期八个里程碑">3. 四个发展期、八个里程碑</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch2-预处理">CH2 预处理</a>
+      <ul>
+        <li><a href="#1-预处理的原因及内容">1. 预处理的原因及内容</a></li>
+        <li><a href="#2-html定位元素">2. html定位元素</a></li>
+        <li><a href="#3-分词">3. 分词</a></li>
+        <li><a href="#4-词性标注">4. 词性标注</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch3-文本向量化上">CH3 文本向量化（上）</a>
+      <ul>
+        <li><a href="#1文本向量化原因">1.文本向量化原因</a></li>
+        <li><a href="#2-文本向量化方法离散表示词袋模型">2. 文本向量化方法（离散表示：词袋模型）</a></li>
+        <li><a href="#3-词袋模型存在问题">3. 词袋模型存在问题</a></li>
+        <li><a href="#4-词嵌入">4. 词嵌入</a></li>
+        <li><a href="#5-nnlm神经网络语言模型">5. NNLM（神经网络语言模型）</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch4-文本向量化中">CH4 文本向量化（中）</a>
+      <ul>
+        <li><a href="#1-word2vec两种结构">1. Word2vec两种结构</a></li>
+        <li><a href="#2word2vec存在问题一词多义">2.Word2vec存在问题：一词多义</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch5-elmo">CH5 ELMO</a>
+      <ul>
+        <li><a href="#1全称要点">1.全称、要点</a></li>
+        <li><a href="#2-lstm-三个门">2. LSTM 三个门</a></li>
+        <li><a href="#3rnn结构-计算">3.RNN结构 计算</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch6-gpt">CH6 GPT</a>
+      <ul>
+        <li><a href="#1定义优势改进方向">1.定义、优势、改进方向</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="自然语言处理期末重点" class="headerLink">
+    <a href="#%e8%87%aa%e7%84%b6%e8%af%ad%e8%a8%80%e5%a4%84%e7%90%86%e6%9c%9f%e6%9c%ab%e9%87%8d%e7%82%b9" class="header-mark"></a>自然语言处理期末重点</h1><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143503.png"></p>
+<h2 id="ch1-绪论" class="headerLink">
+    <a href="#ch1-%e7%bb%aa%e8%ae%ba" class="header-mark"></a>CH1 绪论</h2><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615143728.png"></p>
+<h3 id="1-自然语言处理定义" class="headerLink">
+    <a href="#1-%e8%87%aa%e7%84%b6%e8%af%ad%e8%a8%80%e5%a4%84%e7%90%86%e5%ae%9a%e4%b9%89" class="header-mark"></a>1. 自然语言处理定义</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144458.png"></p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144544.png"></p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615144629.png"></p>
+<p><strong>自然语言处理既是科学，又是技术。</strong></p>
+<h3 id="2-面临难点" class="headerLink">
+    <a href="#2-%e9%9d%a2%e4%b8%b4%e9%9a%be%e7%82%b9" class="header-mark"></a>2. 面临难点</h3><p><strong>歧义问题：词法分析歧义、语法分析歧义、语义分析歧义、语用分析歧义、分词歧义、词性标注歧义、命名实体识别歧义。</strong>（具体例子见ppt）</p>
+<p><strong>本质是知识体系缺乏。</strong></p>
+<p><strong>对策：建立“知识”（规则方法、经验方法、规则经验结合、交互式处理）、减少“未知知识”（限定语言、领域、任务、复杂度）</strong></p>
+<h3 id="3-四个发展期八个里程碑" class="headerLink">
+    <a href="#3-%e5%9b%9b%e4%b8%aa%e5%8f%91%e5%b1%95%e6%9c%9f%e5%85%ab%e4%b8%aa%e9%87%8c%e7%a8%8b%e7%a2%91" class="header-mark"></a>3. 四个发展期、八个里程碑</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615145929.png"></p>
+<p>具体见上图及ppt</p>
+<h2 id="ch2-预处理" class="headerLink">
+    <a href="#ch2-%e9%a2%84%e5%a4%84%e7%90%86" class="header-mark"></a>CH2 预处理</h2><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615155145.png"></p>
+<h3 id="1-预处理的原因及内容" class="headerLink">
+    <a href="#1-%e9%a2%84%e5%a4%84%e7%90%86%e7%9a%84%e5%8e%9f%e5%9b%a0%e5%8f%8a%e5%86%85%e5%ae%b9" class="header-mark"></a>1. 预处理的原因及内容</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150326.png"></p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615150928.png"></p>
+<h3 id="2-html定位元素" class="headerLink">
+    <a href="#2-html%e5%ae%9a%e4%bd%8d%e5%85%83%e7%b4%a0" class="header-mark"></a>2. html定位元素</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="c1">#数据解析</span>
+</span></span><span class="line"><span class="cl">  	<span class="c1"># //相对路径 找到所有</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">page_text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">div_list</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//section[@class=&#34;list&#34;]/div&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">div_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">title</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//div[@class=&#34;property-content-title&#34;]/h3/text()&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># title = d.xpath(&#39;./a/div[2]/div/div/h3/text()&#39;)[0]</span>
+</span></span></code></pre></div><h3 id="3-分词" class="headerLink">
+    <a href="#3-%e5%88%86%e8%af%8d" class="header-mark"></a>3. 分词</h3><h4 id="1-整体难点" class="headerLink">
+    <a href="#1-%e6%95%b4%e4%bd%93%e9%9a%be%e7%82%b9" class="header-mark"></a>（1） 整体难点</h4><p>新词层出不穷、普通词与新词互用、普通词与新词交织在一起、需求多样化</p>
+<h4 id="2-三种方法" class="headerLink">
+    <a href="#2-%e4%b8%89%e7%a7%8d%e6%96%b9%e6%b3%95" class="header-mark"></a>（2） 三种方法</h4><h5 id="a-基于字典" class="headerLink">
+    <a href="#a-%e5%9f%ba%e4%ba%8e%e5%ad%97%e5%85%b8" class="header-mark"></a>a. 基于字典</h5><p>按照一定的策略将待分析的汉字串与一个充分大的词典中的词条进行匹配，若在词典中找到某个字符串，则匹配成功。 常用方法：正向最大匹配、反向最大匹配、最短路径分词。</p>
+<h5 id="b-基于统计" class="headerLink">
+    <a href="#b-%e5%9f%ba%e4%ba%8e%e7%bb%9f%e8%ae%a1" class="header-mark"></a>b. 基于统计</h5><p>相邻的字同时出现的次数越多，越可能构成一个词。常用方法：生成式统计分词（首先建立学习样本的生成模型、再利用模型对预测结果进行间接推理。）、判别式统计分词。</p>
+<h5 id="c-基于理解" class="headerLink">
+    <a href="#c-%e5%9f%ba%e4%ba%8e%e7%90%86%e8%a7%a3" class="header-mark"></a>c. 基于理解</h5><p>通过让计算机模拟人对句子的理解，达到识别词的效果。</p>
+<h5 id="d-优缺点" class="headerLink">
+    <a href="#d-%e4%bc%98%e7%bc%ba%e7%82%b9" class="header-mark"></a>d. 优缺点</h5><p>基于词典的，部署比较简单，只需要安装词库即可。实现也简单，对比查找词语库的思路。
+缺点是，分词精度有限，对于词典里没有的词语识别较差。</p>
+<p>非词典分词法，优点是，对于出现过的词语识别效果较好，能够根据使用领域达到较高的分词精度。
+缺点：实现比较复杂。前期需要做大量的工作。</p>
+<h3 id="4-词性标注" class="headerLink">
+    <a href="#4-%e8%af%8d%e6%80%a7%e6%a0%87%e6%b3%a8" class="header-mark"></a>4. 词性标注</h3><h4 id="1基于规则" class="headerLink">
+    <a href="#1%e5%9f%ba%e4%ba%8e%e8%a7%84%e5%88%99" class="header-mark"></a>（1）基于规则</h4><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154717.png"></p>
+<h4 id="2基于统计模型" class="headerLink">
+    <a href="#2%e5%9f%ba%e4%ba%8e%e7%bb%9f%e8%ae%a1%e6%a8%a1%e5%9e%8b" class="header-mark"></a>（2）基于统计模型</h4><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154751.png"></p>
+<h4 id="3基于统计与规则相结合" class="headerLink">
+    <a href="#3%e5%9f%ba%e4%ba%8e%e7%bb%9f%e8%ae%a1%e4%b8%8e%e8%a7%84%e5%88%99%e7%9b%b8%e7%bb%93%e5%90%88" class="header-mark"></a>（3）基于统计与规则相结合</h4><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615154820.png"></p>
+<h2 id="ch3-文本向量化上" class="headerLink">
+    <a href="#ch3-%e6%96%87%e6%9c%ac%e5%90%91%e9%87%8f%e5%8c%96%e4%b8%8a" class="header-mark"></a>CH3 文本向量化（上）</h2><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615161653.png"></p>
+<h3 id="1文本向量化原因" class="headerLink">
+    <a href="#1%e6%96%87%e6%9c%ac%e5%90%91%e9%87%8f%e5%8c%96%e5%8e%9f%e5%9b%a0" class="header-mark"></a>1.文本向量化原因</h3><p>文本表示是自然语言处理中的基础工作，文本表示的好坏直接影响 到整个自然语言处理系统的性能。文本向量化就是将文本表示成一系列能够表达文本语义的向量，是文本表示的一种重要方式。</p>
+<h3 id="2-文本向量化方法离散表示词袋模型" class="headerLink">
+    <a href="#2-%e6%96%87%e6%9c%ac%e5%90%91%e9%87%8f%e5%8c%96%e6%96%b9%e6%b3%95%e7%a6%bb%e6%95%a3%e8%a1%a8%e7%a4%ba%e8%af%8d%e8%a2%8b%e6%a8%a1%e5%9e%8b" class="header-mark"></a>2. 文本向量化方法（离散表示：词袋模型）</h3><h4 id="1onehot" class="headerLink">
+    <a href="#1onehot" class="header-mark"></a>（1）Onehot</h4><p>​	统计各个词在文本中是否出现，出现则表示为1，未出现表示为0。向量维度为N维。</p>
+<h4 id="2tf词频" class="headerLink">
+    <a href="#2tf%e8%af%8d%e9%a2%91" class="header-mark"></a>（2）TF（词频）</h4><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615160936.png"></p>
+<h4 id="3tf-idf词频-逆文档频率" class="headerLink">
+    <a href="#3tf-idf%e8%af%8d%e9%a2%91-%e9%80%86%e6%96%87%e6%a1%a3%e9%a2%91%e7%8e%87" class="header-mark"></a>（3）TF-IDF（词频-逆文档频率）</h4><p>​	逆文档频率的大小与一个词的常见程度成反比</p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615164326.png"></p>
+<h4 id="4ngram" class="headerLink">
+    <a href="#4ngram" class="header-mark"></a>（4）Ngram</h4><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170419.png"></p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615170452.png"></p>
+<h3 id="3-词袋模型存在问题" class="headerLink">
+    <a href="#3-%e8%af%8d%e8%a2%8b%e6%a8%a1%e5%9e%8b%e5%ad%98%e5%9c%a8%e9%97%ae%e9%a2%98" class="header-mark"></a>3. 词袋模型存在问题</h3><p>维度灾难、无法保留词序信息、存在语义鸿沟</p>
+<h3 id="4-词嵌入" class="headerLink">
+    <a href="#4-%e8%af%8d%e5%b5%8c%e5%85%a5" class="header-mark"></a>4. 词嵌入</h3><p>将词映射到一个维度较小的向量空间内，进而利用统计学方法来研究词与词之间的关系。相比于词袋模型，降低了词向量的维度，减少训练所需数据量。</p>
+<h3 id="5-nnlm神经网络语言模型" class="headerLink">
+    <a href="#5-nnlm%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e8%af%ad%e8%a8%80%e6%a8%a1%e5%9e%8b" class="header-mark"></a>5. NNLM（神经网络语言模型）</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220615171659.png"></p>
+<p>输入向量在隐藏层和输出层中都被使用。</p>
+<p>存在问题：同样仅包含了有限的前文信息，计算复杂度较大，参数较多。模型优化不够，输出的类别较多导致训练过慢；自回归语言模型，无法获取下文信息；</p>
+<h2 id="ch4-文本向量化中" class="headerLink">
+    <a href="#ch4-%e6%96%87%e6%9c%ac%e5%90%91%e9%87%8f%e5%8c%96%e4%b8%ad" class="header-mark"></a>CH4 文本向量化（中）</h2><h3 id="1-word2vec两种结构" class="headerLink">
+    <a href="#1-word2vec%e4%b8%a4%e7%a7%8d%e7%bb%93%e6%9e%84" class="header-mark"></a>1. Word2vec两种结构</h3><p>CBOW、Skip-Gram</p>
+<p>区别仅仅是输入层、输出层不同、参数优化的指导依据不同</p>
+<h3 id="2word2vec存在问题一词多义" class="headerLink">
+    <a href="#2word2vec%e5%ad%98%e5%9c%a8%e9%97%ae%e9%a2%98%e4%b8%80%e8%af%8d%e5%a4%9a%e4%b9%89" class="header-mark"></a>2.Word2vec存在问题：一词多义</h3><p>总结见ppt</p>
+<h2 id="ch5-elmo" class="headerLink">
+    <a href="#ch5-elmo" class="header-mark"></a>CH5 ELMO</h2><h3 id="1全称要点" class="headerLink">
+    <a href="#1%e5%85%a8%e7%a7%b0%e8%a6%81%e7%82%b9" class="header-mark"></a>1.全称、要点</h3><p>ELMO（Embedding from Language Models）</p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616213533.png"></p>
+<h3 id="2-lstm-三个门" class="headerLink">
+    <a href="#2-lstm-%e4%b8%89%e4%b8%aa%e9%97%a8" class="header-mark"></a>2. LSTM 三个门</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616214637.png"></p>
+<h3 id="3rnn结构-计算" class="headerLink">
+    <a href="#3rnn%e7%bb%93%e6%9e%84-%e8%ae%a1%e7%ae%97" class="header-mark"></a>3.RNN结构 计算</h3><p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215409.png"></p>
+<p><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png"
+        data-srcset="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png 1.5x, https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png"
+        title="https://raw.githubusercontent.com/GuHao0216/picRepo/main/img/20220616215547.png"></p>
+<h2 id="ch6-gpt" class="headerLink">
+    <a href="#ch6-gpt" class="header-mark"></a>CH6 GPT</h2><h3 id="1定义优势改进方向" class="headerLink">
+    <a href="#1%e5%ae%9a%e4%b9%89%e4%bc%98%e5%8a%bf%e6%94%b9%e8%bf%9b%e6%96%b9%e5%90%91" class="header-mark"></a>1.定义、优势、改进方向</h3><p>GPT（Generative Pre-Training）生成式预训练</p>
+<p>两阶段：利用语言模型进行预训练、通过Fine-tuning解决下游任务。</p>
+<p><strong>与ELMO对比：</strong></p>
+<p><strong>GPT只采用上文进行预测，ELMO采用上下文</strong></p>
+<p><strong>特征抽取器：GPT采用Transformer，ELMO采用RNN</strong></p>
+<p><strong>不足之处：</strong></p>
+<p><strong>单向语言模型，没有把单词的下文融合进来</strong></p>
+<p>改进方向：</p>
+<p>微调与特征融合</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点" data-via="Google_Hao"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Myspace" data-sharer="myspace" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Blogger" data-sharer="blogger" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://guhao0216.github.io/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E9%87%8D%E7%82%B9/" data-title="自然语言处理期末重点"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%B8%80%E7%A7%8D%E5%9F%BA%E4%BA%8Etransformer%E7%9A%84%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="一种基于Transformer的代码摘要方法"><i class="fas fa-angle-left fa-fw"></i>一种基于Transformer的代码摘要方法</a></div>
+</div>
+<div id="comments"></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    托管在 <a title="Github Pages" href="https://github.com/GuHao0216/GuHao0216.github.io" target="_blank" rel="noopener noreffer">GitHub Pages</a> 上
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">HarryGu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"sharerjs":true,"table":{"sort":true}};</script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
